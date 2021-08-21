@@ -1,5 +1,6 @@
 import React from 'react'
 import CartItem from './CartItem'
+import { connect } from 'react-redux'
 const CartContainer = ({ cart = [] }) => {
   if (cart.length === 0) {
     return (
@@ -37,5 +38,9 @@ const CartContainer = ({ cart = [] }) => {
     </section>
   )
 }
+function mapStateToProps(store) {
+  const { cart, total } = store
+  return { cart, total }
+}
 
-export default CartContainer
+export default connect(mapStateToProps)(CartContainer)
