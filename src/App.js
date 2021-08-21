@@ -1,5 +1,4 @@
 import { createStore } from 'redux'
-import { DECREASE, INCREASE, CHANGE_NAME } from './constant'
 import Navbar from './components/Navbar'
 import CartContainer from './components/CartContainer'
 import { cartItems } from './cartItems'
