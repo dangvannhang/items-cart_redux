@@ -7,16 +7,46 @@ function reducer(state, action) {
       return { ...state, cart: [] }
     case INCREASE: {
       console.log('you increased')
-      return { ...state }
+      // crease a new array
+      let tempCart = state.cart.map((cartItem) => {
+        if (cartItem.id === action.payload.id) {
+          return { ...cartItem, amount: cartItem.amount + 1 }
+        }
+        return cartItem
+      })
+      return { ...state, cart: tempCart }
     }
     case DECREASE: {
       console.log('you decreased')
-      return { ...state }
+      let tempCart = []
+      if (action.payload.amount === 1) {
+        console.log(`hey it is one`)
+        tempCart = state.cart.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        )
+      } else {
+        tempCart = state.cart.map((cartItem) => {
+          if (cartItem.id === action.payload.id) {
+            return { ...cartItem, amount: cartItem.amount - 1 }
+          }
+          if (cartItem.amount <= 0) {
+          }
+          return cartItem
+        })
+      }
+      return {
+        ...state,
+        cart: tempCart,
+      }
     }
     case REMOVE: {
       console.log('removed')
-      console.log(action.payload.id)
-      return { ...state }
+      return {
+        ...state,
+        cart: state.cart.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        ),
+      }
     }
     default:
       return state
