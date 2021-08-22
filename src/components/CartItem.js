@@ -12,9 +12,9 @@ const CartItem = ({
   price,
   amount,
   remove,
-  decrease,
-  increase,
   toggle,
+  increase,
+  decrease,
 }) => {
   return (
     <div className='cart-item'>
@@ -47,7 +47,8 @@ const CartItem = ({
             if (amount === 1) {
               remove()
             } else {
-              decrease('dec')
+              toggle('dec')
+              // decrease()
             }
           }}
         >

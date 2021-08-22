@@ -11,8 +11,8 @@ import { cartItems } from './cartItems'
 // contain all state of app
 const initialStore = {
   cart: cartItems,
-  total: 105,
-  amount: 5,
+  total: 0,
+  amount: 0,
 }
 
 // reducer - regular function js -  method to handle store off app
@@ -81,13 +81,26 @@ function reducer(state = initialStore, action) {
       return {
         ...state,
         cart: state.cart.map((cartItem) => {
-          if (cartItem.id !== action.payload.id) return
+          if (cartItem.id !== action.payload.id) return cartItem
           if (action.payload.toggle === 'inc') {
+            console.log('inc')
             return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
+            // return cartItem
           }
           if (action.payload.toggle === 'dec') {
+            console.log('dec')
             return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
+            // return cartItem
           }
+
+          // if (cartItem.id === action.payload.id) {
+          //   if (action.payload.toggle === 'inc') {
+          //     return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
+          //   }
+          //   if (action.payload.toggle === 'dec') {
+          //     return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
+          //   }
+          // }
         }),
       }
     }
