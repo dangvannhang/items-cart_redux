@@ -66,6 +66,7 @@ function reducer(state = initialStore, action) {
           cartTotal.total += itemTotal
 
           cartTotal.amount += amount
+          console.log('cart total', cartTotal)
           return cartTotal
         },
         {
@@ -78,29 +79,30 @@ function reducer(state = initialStore, action) {
       return { ...state, total, amount }
     }
     case TOGGLE_AMOUNT: {
+      console.log(state)
       return {
         ...state,
         cart: state.cart.map((cartItem) => {
-          if (cartItem.id !== action.payload.id) return cartItem
-          if (action.payload.toggle === 'inc') {
-            console.log('inc')
-            return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
-            // return cartItem
-          }
-          if (action.payload.toggle === 'dec') {
-            console.log('dec')
-            return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
-            // return cartItem
-          }
-
-          // if (cartItem.id === action.payload.id) {
-          //   if (action.payload.toggle === 'inc') {
-          //     return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
-          //   }
-          //   if (action.payload.toggle === 'dec') {
-          //     return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
-          //   }
+          // if (cartItem.id !== action.payload.id) return cartItem
+          // if (action.payload.toggle === 'inc') {
+          //   console.log('inc')
+          //   return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
+          //   // return cartItem
           // }
+          // if (action.payload.toggle === 'dec') {
+          //   console.log('dec')
+          //   return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
+          //   // return cartItem
+          // }
+          if (cartItem.id === action.payload.id) {
+            if (action.payload.toggle === 'inc') {
+              return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
+            }
+            if (action.payload.toggle === 'dec') {
+              return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
+            }
+          }
+          return cartItem
         }),
       }
     }
