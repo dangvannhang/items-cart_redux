@@ -66,7 +66,6 @@ function reducer(state = initialStore, action) {
           cartTotal.total += itemTotal
 
           cartTotal.amount += amount
-          console.log('cart total', cartTotal)
           return cartTotal
         },
         {
@@ -79,7 +78,6 @@ function reducer(state = initialStore, action) {
       return { ...state, total, amount }
     }
     case TOGGLE_AMOUNT: {
-      console.log(state)
       return {
         ...state,
         cart: state.cart.map((cartItem) => {
