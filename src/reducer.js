@@ -4,10 +4,19 @@ import {
   DECREASE,
   REMOVE,
   GET_TOTALS,
+  TOGGLE_AMOUNT,
 } from './constants/actions'
+import { cartItems } from './cartItems'
+
+// contain all state of app
+const initialStore = {
+  cart: cartItems,
+  total: 105,
+  amount: 5,
+}
 
 // reducer - regular function js -  method to handle store off app
-function reducer(state, action) {
+function reducer(state = initialStore, action) {
   switch (action.type) {
     case CLEAR_CART:
       return { ...state, cart: [] }
@@ -67,6 +76,20 @@ function reducer(state, action) {
       // only get 2 digit after ,
       total = parseFloat(total.toFixed(2))
       return { ...state, total, amount }
+    }
+    case TOGGLE_AMOUNT: {
+      return {
+        ...state,
+        cart: state.cart.map((cartItem) => {
+          if (cartItem.id !== action.payload.id) return
+          if (action.payload.toggle === 'inc') {
+            return (cartItem = { ...cartItem, amount: cartItem.amount + 1 })
+          }
+          if (action.payload.toggle === 'dec') {
+            return (cartItem = { ...cartItem, amount: cartItem.amount - 1 })
+          }
+        }),
+      }
     }
     default:
       return state
